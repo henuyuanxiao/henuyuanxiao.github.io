@@ -1,61 +1,36 @@
-/* 页脚与头图透明 */
-#footer {
-  background: transparent !important;
+/* 页脚透明 */
+#footer{
+  background: transparent!important;
 }
-#page-header {
-  background: transparent !important;
+/* 头图透明
+#page-header{
+  background: transparent!important;
+} */
+/*top-img黑色透明玻璃效果移除，不建议加，除非你执着于完全一图流或者背景图对比色明显 */
+#page-header.post-bg:before {
+  background-color: transparent!important;
 }
+#footer, #footer:before {
+  background: transparent!important
+}
+/*夜间模式伪类遮罩层透明*/
+[data-theme="dark"]
+  #footer::before{
+      background: transparent!important;
+    }
+[data-theme="dark"]
+  #page-header::before{
+    background: transparent!important;
+    }
 
-/* 白天模式遮罩透明 */
-#footer::before {
-  background: transparent !important;
+/*指针样式*/
+body {
+  cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/default.cur),
+      default;
 }
-#page-header::before {
-  background: transparent !important;
+/*链接小手样式*/
+a,
+img {
+  cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/pointer.cur),
+      default;
 }
-
-/* 夜间模式遮罩透明 */
-[data-theme="dark"] #footer::before {
-  background: transparent !important;
-}
-[data-theme="dark"] #page-header::before {
-  background: transparent !important;
-}
-
-
-/* 鼠标样式 */
-#cursor {
-    position: fixed;
-    width: 16px;
-    height: 16px;
-    /* 这里改变跟随的底色 */
-    background: var(--theme-color);
-    border-radius: 8px;
-    opacity: 0.25;
-    z-index: 10086;
-    pointer-events: none;
-    transition: 0.2s ease-in-out;
-    transition-property: background, opacity, transform;
-  }
-  
-  #cursor.hidden {
-    opacity: 0;
-  }
-  
-  #cursor.hover {
-    opacity: 0.1;
-    transform: scale(2.5);
-    -webkit-transform: scale(2.5);
-    -moz-transform: scale(2.5);
-    -ms-transform: scale(2.5);
-    -o-transform: scale(2.5);
-  }
-  
-  #cursor.active {
-    opacity: 0.5;
-    transform: scale(0.5);
-    -webkit-transform: scale(0.5);
-    -moz-transform: scale(0.5);
-    -ms-transform: scale(0.5);
-    -o-transform: scale(0.5);
-  }
