@@ -1,0 +1,631 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>vue面试题总结 | 爷の宝藏小站</title><meta name="keywords" content="vue"><meta name="author" content="YuanXiao"><meta name="copyright" content="YuanXiao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1、虚拟DOM中key的作用： ​        key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】，随后Vue进行【新虚拟DOM】的差异比较，比较规则如下： 2、key的对比规则： ​        1、旧虚拟DOM中找到了与新虚拟DOM相同的key：  若虚拟DOM中内容没变，直接使用之前的真实DOM 若虚拟DOM中内容变了，则生成新的真实DO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue面试题总结">
+<meta property="og:url" content="https://henuyuanxiao.github.io/2022/12/19/vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="爷の宝藏小站">
+<meta property="og:description" content="1、虚拟DOM中key的作用： ​        key是虚拟DOM对象的标识，当状态中的数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】，随后Vue进行【新虚拟DOM】的差异比较，比较规则如下： 2、key的对比规则： ​        1、旧虚拟DOM中找到了与新虚拟DOM相同的key：  若虚拟DOM中内容没变，直接使用之前的真实DOM 若虚拟DOM中内容变了，则生成新的真实DO">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/5.png">
+<meta property="article:published_time" content="2022-12-19T13:21:21.594Z">
+<meta property="article:modified_time" content="2022-12-19T13:29:17.141Z">
+<meta property="article:author" content="YuanXiao">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/5.png"><link rel="shortcut icon" href="/img/hidokawa.png"><link rel="canonical" href="https://henuyuanxiao.github.io/2022/12/19/vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vue面试题总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-12-19 21:29:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/css/ButterflyScrollbar.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/css/Font.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.css" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/02/05/89VfrlGU2HKcu64.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/bangumis/"><i class="fa-fw fas fa-video"></i><span> 追番</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/5.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">爷の宝藏小站</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/bangumis/"><i class="fa-fw fas fa-video"></i><span> 追番</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vue面试题总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-19T13:21:21.594Z" title="发表于 2022-12-19 21:21:21">2022-12-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-19T13:29:17.141Z" title="更新于 2022-12-19 21:29:17">2022-12-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="vue面试题总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>1、虚拟DOM中key的作用：</strong></p>
+<p>​        key是<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%99%9A%E6%8B%9FDOM&amp;spm=1001.2101.3001.7020">虚拟DOM</a>对象的标识，当状态中的数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】，随后Vue进行【新虚拟DOM】的差异比较，比较规则如下：</p>
+<p><strong>2、key的对比规则：</strong></p>
+<p>​        1、旧虚拟DOM中找到了与新虚拟DOM相同的key：</p>
+<ul>
+<li>若虚拟DOM中内容没变，直接使用之前的真实DOM</li>
+<li>若虚拟DOM中内容变了，则生成新的真实DOM，随后替换掉页面中之前的真实DOM</li>
+</ul>
+<p>​        2、旧虚拟DOM中未找到与新虚拟DOM相同的key</p>
+<ul>
+<li>创建新的真实DOM，随后渲染到页面</li>
+</ul>
+<p><strong>3、用index作为key可能会引发的问题：</strong></p>
+<p>​        1、若对数据进行：逆序添加、逆序删除等破坏顺序操作：会产生没有必要的真实DOM更新 ===&gt; 界面效果没问底，但效率低</p>
+<p>​        2、如果结构中还包含输入类的DOM：会产生错误DOM更新 ===&gt; 界面有问题</p>
+<p><strong>4、开发中如何选择key？</strong></p>
+<p>​        1、最好使用每条数据的唯一标识作为key，比如id、手机号、身份证号、学号等唯一值</p>
+<p>​        2、如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的</p>
+<p><strong>5、Vue 组件中 data 为什么必须是函数？</strong></p>
+<p>​        保证组件的独立性和可复用性，data是一个函数，组件实例化的时候将会调用这个函数，返回一个对象，计算机会给这个对象分配一个内存地址，你实例化几次，就分配几个内存地址，他们的地址都不一样，所以每个组件中的数据不会相互干扰，改变其中一个组件的状态，其它组件不变。</p>
+<p><strong>6、vuex的State特性是？</strong></p>
+<p>​        state属性是Vuex中用于存放组件之间共享的数据；也就是说，我们把一些组件之间共享的状态主要存放在state属性中；它采用的是单一状态树——用一个对象就包含了全部的应用层级状态。这也意味着，每个应用将仅仅包含一个 store 实例。单一状态树让我们能够直接地定位任一特定的状态片段，在调试的过程中也能轻易地取得整个当前应用状态的快照。</p>
+<p><strong>7、Vue声明组件的state是⽤data⽅法，那为什么data是通过⼀个function来返回⼀个对象，⽽不是直接写⼀个对象呢？</strong><br>​        从语法上说，如果不⽤function返回就会出现语法错误导致编译不通过。从原理上的话，⼤概就是组件可以被多次创建，如果不使⽤function就会使所有调⽤该组件的页⾯公⽤同⼀个数据域，这样就失去了组件的概念了</p>
+<p><strong>8、介绍一下Vue的响应式系统</strong></p>
+<p>​        1、任何一个 Vue Component 都有一个与之对应的 Watcher 实例</p>
+<p>​        2、Vue 的 data 上的属性会被添加 getter 和 setter 属性</p>
+<p>​        3、当 Vue Component render 函数被执行的时候, data 上会被 触碰(touch), 即被读, getter 方法会被调用, 此时 Vue 会去记录此 Vue component 所依赖的所有 data。(这一过程被称为依赖收集)</p>
+<p>​        4、data 被改动时（主要是用户操作）, 即被写, setter 方法会被调用, 此时 Vue 会去通知所有依赖于此 data 的组件去调用他们的 render 函数进行更新</p>
+<p><strong>9、computed与watch的区别</strong></p>
+<ul>
+<li>1、computed擅长处理的场景：一个数据受多个数据影响；watch擅长处理的场景：一个数据影响多个数据。 </li>
+<li>2、功能上：computed是计算属性，watch是监听一个值的变化，然后执行对应的回调。</li>
+<li>3、是否调用缓存：computed支持缓存，只有依赖数据发生改变,才会重新进行计算;而watch不支持缓存，数据变,直接会触发相应的操作。</li>
+<li>4、是否调用return：computed中的函数必须要用return返回，watch中的函数不是必须要用return。</li>
+<li>5、computed不支持异步 ，当computed内有异步操作时无效，无法监听数据的变化;而watch支持异步。</li>
+<li>6、computed默认第一次加载的时候就开始监听；watch默认第一次加载不做监听，如果需要第一次加载做监听，添加immediate属性，设置为true（immediate:true）</li>
+</ul>
+<p><strong>10、介绍一下Vue的生命周期</strong></p>
+<p>​        每一个vue实例从创建到销毁的过程，就是这个vue实例的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F&amp;spm=1001.2101.3001.7020">生命周期</a>。在这个过程中，他经历了从开始创建、初始化数据、编译模板、挂载Dom、渲染→更新→渲染、卸载等一系列过程。</p>
+<ul>
+<li>将要创建 ===&gt;调用beforeCreate函数</li>
+<li>创建完毕 ===&gt;调用created函数</li>
+<li>将要挂载 ===&gt;调用beforeMount函数</li>
+<li>挂载完毕 ===&gt;调用mounted函数</li>
+<li>将要更新 ===&gt;调用beforeUpdate函数</li>
+<li>更新完毕 ===&gt;调用updated函数</li>
+<li>将要销毁 ===&gt;调用beforeDestory函数</li>
+<li>销毁完毕 ===&gt;调用destroyed函数</li>
+</ul>
+<p><strong>11、vue生命周期的作用是什么?</strong><br>Vue生命周期中有多个事件钩子，让我们在控制整个Vue实例过程时更容易形成好的逻辑。</p>
+<p><strong>12、第一次页面加载会触发哪几个钩子?</strong><br>第一次页面加载时会触发 beforeCreate, created, beforeMount, mounted 这几个钩子<br><strong>13、DOM 渲染在 哪个周期中就已经完成?</strong><br>DOM 渲染在 mounted 中就已经完成了。</p>
+<p><strong>14、简单描述每个周期具体适合哪些场景</strong></p>
+<ul>
+<li>beforeCreate : 可以在这加个loading事件，在加载实例时触发</li>
+<li>created : 初始化完成时的事件写在这⾥，如在这结束loading事件，异步请求也适宜在这⾥调⽤</li>
+<li>mounted : 挂载元素，获取到DOM节点</li>
+<li>updated : 如果对数据统⼀处理，在这⾥写上相应函数</li>
+<li>beforeDestroy : 可以做⼀个确认停⽌事件的确认框</li>
+<li>nextTick : 更新数据后⽴即操作dom</li>
+</ul>
+<p><strong>15、组件之间是怎么通信的</strong></p>
+<p>组件之间通信主要分为三种：父子传参，子父传参，兄弟传参。</p>
+<ol>
+<li>父子传参：父组件通过自定义属性的方式传参，通过props属性给子组件传参，子组件通过props属性去接收参数。</li>
+<li>子父传参：子组件通过自定义事件的方式传参，通过$emit去进行传参。</li>
+</ol>
+<p><strong>16、Vue.cli中怎样使用自定义的组件？</strong></p>
+<ol>
+<li>在 components 目录新建组件文件</li>
+<li>在需要用到的页面import中导入</li>
+<li>使用component注册</li>
+<li>在 template 视图中使用组件标签</li>
+</ol>
+<p><strong>17、Vue如何实现按需加载配合webpack设置</strong></p>
+<ul>
+<li>webpack中提供了require.ensure( )来实现按需加载。以前引入路由是通过import这样的方式引入，改为const定义方式进行引入。</li>
+<li>不进行页面按需加载引入方式 import home from ../../common/home.vue</li>
+<li>进行页面按需加载的引入方式：const home = r =&gt;require.ensure([],() =&gt;require(‘../../common/home.vue)))</li>
+</ul>
+<p><strong>18、scss是什么？在Vue.cli中的安装使用步骤是？有哪几大特性？</strong></p>
+<p><code>css</code>的预编译语言。</p>
+<p>使用步骤：</p>
+<ul>
+<li>第一步：先装<code>css-loader</code>、<code>node-loader</code>、<code>sass-loader</code>等加载器模块；</li>
+<li>第二步：在<code>build</code>目录找到<code>webpack.base.config.js</code>，在<code>extends</code>属性中加一个拓展<code>.scss</code>；</li>
+<li>第三步：在同一个文件，配置一个<code>module</code>属性；</li>
+<li>第四步：然后在组件的<code>style</code>标签加上<code>lang</code>属性 ，例如：<code>lang=”scss”</code>；</li>
+</ul>
+<p>特性:</p>
+<ul>
+<li>可以用变量，例如（<code>$变量名称=值</code>）；</li>
+<li>可以用混合器；</li>
+<li>可以嵌套；</li>
+</ul>
+<p><strong>19、如何让 CSS 只在当前组件中起作用？</strong></p>
+<p>将当前组件的<code>&lt;style&gt;</code>修改为<code>&lt;style scoped&gt;</code>。</p>
+<p><strong>20、聊聊你对Vue.js的template编译的理解？</strong></p>
+<p>​        简⽽⾔之，就是先转化成AST树，再得到的render函数返回VNode（Vue的虚拟DOM节点）<br>详情步骤：<br>​        ⾸先，通过compile编译器把template编译成AST语法树（abstract syntax tree 即 源代码的抽象语法结构的树状表现形式），compile是createCompiler的返回值，createCompiler是⽤以创建编译器的。另外compile还负责合并option。<br>​        然后，AST会经过generate（将AST语法树转化成render funtion字符串的过程）得到render函数，render的返回值是VNode，VNode是Vue的虚拟DOM节点，⾥⾯有（标签名、⼦节点、⽂本等等） </p>
+<p><strong>21、Vue 路由跳转的几种方式</strong></p>
+<ul>
+<li>第一种方式：router-link （声明式路由）</li>
+<li>第二种方式：router.push(编程式路由)</li>
+<li>第三种方式：this.$router.push() (函数里面调用)</li>
+<li>第四种方式：this.$router.replace() (用法同上,push)</li>
+<li>第五种方式：this.$router.go(n)</li>
+</ul>
+<p><strong>22、Vue的路由实现：hash模式和history模式</strong></p>
+<p>hash 模式 (默认)</p>
+<ul>
+<li>工作原理: 监听网页的hash值变化 —&gt; onhashchange事件, 获取location.hash</li>
+<li>使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。</li>
+<li>会给用户好像跳转了网页一样的感觉, 但是实际上没有跳转</li>
+<li>主要用在<strong>单</strong>页面应用(SPA)</li>
+</ul>
+<p>history 模式</p>
+<ul>
+<li>工作原理: 主要利用 history.pushState() API 来改变URL, 而不刷新页面.</li>
+<li>其实一共有五种模式可以实现改变URL, 而不刷新页面.</li>
+<li>需要后台配置支持, 如果输入一个并不存在的url, 需要后端配置做 “兜底配置”, 不是粗暴的返回404, 而是返回首页</li>
+</ul>
+<p><strong>23、Vue与Angular以及React的区别？</strong></p>
+<p>基本概念</p>
+<ul>
+<li>Angular 是一个应用设计框架与开发平台，用于创建高效、复杂、精致的单页面应用。</li>
+<li>React 是一个用于构建用户界面的 JavaScript 库</li>
+<li>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。</li>
+</ul>
+<p>三者比较<br>​        相同点</p>
+<ul>
+<li>1.都是基于javascript/typescript的前端开发库，为前端开发提供高效、复用性高的开发方式</li>
+<li>2.都有组件和模板的开发思想</li>
+<li>3.各自的组件都有生命周期，不用的组件可以卸载，不占用资源</li>
+<li>4.都支持指令，如样式、事件等的指令</li>
+</ul>
+<p>​        不同点</p>
+<ul>
+<li>1.创始和发行不同：Angular是由googl提供支持的，初始发行于 2016年9月；React由Facebook维护，初始发行于 2013年3月；Vue是由前google人员创建，初始发行于2014年2月</li>
+<li>2.应用类型不同：Angular支持开发native应用程序、SPA单页应用程序、混合应用程序和web应用程序；React支持开发SPA和移动应用程序；Vue支持开发高级SPA，开始支持native应用程序</li>
+<li>3.模型不同：angular基于MVC（模型-视图-控制器）架构；react和vue是基于Virtual DOM（虚拟的文档对象模型）</li>
+<li>4、数据流流向不同：Angular使用的是双向数据绑定，React用的是单数据流的，而Vue则支持两者。</li>
+<li>\5. 对微应用和微服务的支持不同：Angular使用的是TypeScript，因此它更适合于单页Web应用（single page web application，SPA），而非微服务。相反，React和Vue的灵活性更适合微应用和微服务的开发。</li>
+<li>\6. 对原生应用的支持不同： React Native为iOS和Android开发原生应用；Angular的NativeScript已被原生应用所采用，特别是Ionic框架已经被广泛地运用在制作混合应用等方面；Vue的Weex平台正在开发之中，尚无下一步使之成为全面跨平台的计划。</li>
+<li>\7. 框架和库：Angular 是一个框架而不是一个库，因为它提供了关于如何构建应用程序的强有力的约束，并且还提供了更多开箱即用的功能。React 和 Vue 是是一种库，可以和各种包搭配。</li>
+<li>\8. 组件之间传值方式不同：Angular 中直接的父子组件，父组件可以直接访问子组件的 public 属性和方法，也可以借助于@Input 和 @Output 进行通讯。没有直接关系的，借助于 Service 单例进行通讯；React 组件之间通过通过prop或者state来通信，不同组件之间还有Rex状态管理功能；Vue组件之间通信通过props ，以及Vuex状态管理来传值</li>
+</ul>
+<p><strong>24、vue-router中导航守卫有哪些？</strong></p>
+<p>​        全局前置守卫、路由独享守卫、组件内守卫</p>
+<p><strong>25、 为什么使用Vue？</strong></p>
+<ul>
+<li>优点：轻量级的框架、双向数据绑定、组件化开发、单页面路由、学习成本低、虚拟dom、渐进式框架、数据和结构的分离、运行速度快、插件化</li>
+<li>缺点：不支持ie8以下、社区没有angular和react丰富、缺乏高阶教程和文档、单页面应用不利用seo优化、首次加载时耗时多</li>
+</ul>
+<p><strong>26、说出至少 4 种 vue 指令和它的用法？</strong></p>
+<ul>
+<li>v-if：判断是否隐藏；</li>
+<li>v-for：数据循环；</li>
+<li>v-bind:class：绑定一个属性；</li>
+<li>v-model：实现双向绑定；</li>
+</ul>
+<p><strong>27、v-if和v-show的区别</strong></p>
+<ul>
+<li>v-if通过控制dom节点的方式，添加和删除元素，进而实现显示或隐藏元素，v-show通过设置dom元素的display来实现显示或隐藏的操作，并不会删除dom</li>
+<li>v-if隐藏会将组件销毁，显示时会将其内部的监听事件重建，v-show只是设置display，并不会阻止子组件内部的监听事件</li>
+<li>v-if有着更高的切换消耗，v-show有着更高的初始渲染消耗</li>
+</ul>
+<p><strong>28、为什么避免 v-if 和 v-for 一起用？</strong></p>
+<p>​        当 <code>Vue</code> 处理指令时，<code>v-for</code> 比 <code>v-if</code> 具有更高的优先级，通过<code>v-if</code> 移动到容器元素，不会再重复遍历列表中的每个值。取而代之的是，只检查它一次，且不会在 <code>v-if</code> 为否的时候运算 <code>v-for</code>。</p>
+<p><strong>29、什么是 MVVM ？</strong></p>
+<ul>
+<li><code>MVVM</code>是<code>Model-View-ViewModel</code>的缩写。<code>MVVM</code>是一种设计思想。<code>Model</code> 层代表数据模型，也可以在<code>Model</code>中定义数据修改和操作的业务逻辑；<code>View</code> 代表<code>UI 组件</code>，它负责将数据模型转化成<code>UI</code> 展现出来，<code>ViewModel</code> 是一个同步<code>View</code> 和 <code>Model</code>的对象。</li>
+<li>在<code>MVVM</code>架构下，<code>View</code> 和 <code>Model</code> 之间并没有直接的联系，而是通过<code>ViewModel</code>进行交互，<code>Model</code> 和 <code>ViewModel</code> 之间的交互是双向的， 因此<code>View</code> 数据的变化会同步到<code>Model</code>中，而<code>Model</code> 数据的变化也会立即反应到<code>View</code> 上。</li>
+<li><code>ViewModel</code> 通过双向数据绑定把 <code>View</code> 层和 <code>Model</code> 层连接起来，而<code>View</code> 和 <code>Model</code> 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作<code>DOM</code>, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 <code>MVVM</code> 来统一管理。</li>
+</ul>
+<p><strong>30、vuex是什么？怎么使用？哪种功能场景使用它？</strong></p>
+<p><code>vue</code>框架中状态管理。在<code>main.js</code>引入<code>store</code>注入。新建一个目录<code>store</code> 。场景有：单页应用中，组件之间的状态，音乐播放、登录状态、加入购物车等。</p>
+<p><strong>31、vuex有哪几种属性？</strong></p>
+<p>有五种，分别是 <code>State</code>、 <code>Getter</code>、<code>Mutation</code> 、<code>Action</code>、 <code>Module</code>。</p>
+<p><strong>32、vuex的State特性</strong></p>
+<ul>
+<li><code>Vuex</code>就是一个仓库，仓库里面放了很多对象。其中<code>state</code>就是数据源存放地，对应于一般<code>Vue</code>对象里面的<code>data</code>。</li>
+<li><code>state</code>里面存放的数据是<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%93%8D%E5%BA%94%E5%BC%8F&amp;spm=1001.2101.3001.7020">响应式</a>的，<code>Vue</code>组件从<code>store</code>中读取数据，若是<code>store</code>中的数据发生改变，依赖这个数据的组件也会发生更新。</li>
+<li>通过<code>mapState</code>和mapGetters把全局 <code>state</code> 和 <code>getters</code> 映射到当前组件的 <code>computed</code> 计算属性中。</li>
+</ul>
+<p><strong>33、vuex的Getter特性</strong></p>
+<ul>
+<li><code>getters</code> 可以对<code>State</code>进行计算操作，它就是<code>Store</code>的计算属性。</li>
+<li>虽然在组件内也可以做计算属性，但是<code>getters</code> 可以在多组件之间复用。</li>
+<li>如果一个状态只在一个组件内使用，可以不用<code>getters</code>。</li>
+</ul>
+<p><strong>34、vuex的Mutation特性</strong></p>
+<p><code>Action</code> 类似于 <code>mutation</code>，不同在于：<code>Action</code> 提交的是 <code>mutation</code>，而不是直接变更状态；<code>Action</code> 可以包含任意异步操作。</p>
+<p><strong>35、不用Vuex会带来什么问题？</strong></p>
+<ul>
+<li>可维护性会下降，想修改数据要维护三个地方；</li>
+<li>可读性会下降，因为一个组件里的数据，根本就看不出来是从哪来的；</li>
+<li>增加耦合，大量的上传派发，会让耦合性大大增加，<code>Vue</code>用<code>Component</code>本意就是为了减少耦合，现在这么用，和组件化的初衷相背。</li>
+</ul>
+<p><strong>36、keep-alive 的作用是什么?</strong></p>
+<p>包裹动态组件时，会缓存不活动的组件实例，主要用于保留组件状态或避免重新渲染。</p>
+<p><strong>37、vue-loader 是什么？用途有哪些？</strong></p>
+<p>解析<code>.vue</code>文件的一个加载器。</p>
+<p>用途：js 可以写<code>es6</code>、<code>style</code>样式可以<code>scss</code>或<code>less</code>、<code>template</code>可以加<code>jade</code>等。</p>
+<p><strong>38、如何获取dom</strong><br>​        在我们的vue项⽬中，难免会因为引⽤第三⽅库⽽需要操作DOM标签，vue为我们提供了ref属性。 ref 被⽤来给元素或⼦组件注册引⽤信息。引⽤信息将会注册在⽗组件的 $refs 对象上。如果在普通的 DOM 元素上使⽤，引⽤指向的就是 DOM 元素；如果⽤在⼦组件上，引⽤就指向组件实例</p>
+<p><strong>39、iframe的优缺点？</strong></p>
+<p>​        iframe也称作嵌⼊式框架，嵌⼊式框架和框架⽹页类似，它可以把⼀个⽹页的框架和内容嵌⼊在现有的⽹页中。<br>​        优点：</p>
+<ul>
+<li>解决加载缓慢的第三⽅内容如图标和⼴告等的加载问题</li>
+<li>Security sandbox</li>
+<li>并⾏加载脚本</li>
+<li>⽅便制作导航栏</li>
+</ul>
+<p>​        缺点：</p>
+<ul>
+<li>iframe会阻塞主页⾯的Onload事件</li>
+<li>即使内容为空，加载也需要时间</li>
+<li>没有语意</li>
+</ul>
+<p><strong>40、请说出vue.cli项⽬中src⽬录每个⽂件夹和⽂件的⽤法？</strong><br>​        assets⽂件夹是放静态资源；components是放组件；router是定义路由相关的配置;view视图；app.vue是⼀个应⽤主组件；main.js是⼊⼝⽂件<br><strong>41、vue常⽤的修饰符</strong></p>
+<ul>
+<li>.stop:等统⼀JavaScript中的event.stopPropagation(),防⽌事件冒泡</li>
+<li>.prevent:等同于JavaScript中的event。preventDefault(),防⽌执⾏预设的⾏为(如果事件可取消，则取消该事件，⽽不停⽌事件的进⼀步</li>
+<li>传播)；</li>
+<li>.capture:与事件冒泡的⽅向相反，事件捕获由外到内</li>
+<li>.self:只会触发⾃⼰范围内的事件，不包含⼦元素；</li>
+<li>.once:只会触发⼀次。</li>
+</ul>
+<p><strong>42、⾃定义指令（v-check、v-focus）的⽅法有哪些？它有哪些钩⼦函数？还有哪些钩⼦函数参数？</strong></p>
+<ul>
+<li>全局定义指令：在vue对象的directive⽅法⾥⾯有两个参数，⼀个是指令名称，另外⼀个是函数。组件内定义指令：directives</li>
+<li>钩⼦函数：bind（绑定事件触发）、inserted(节点插⼊的时候触发)、update（组件内相关更新）</li>
+<li>钩⼦函数参数：el、binding</li>
+</ul>
+<p><strong>43、vue的两个核⼼点</strong><br>数据驱动，组件系统</p>
+<ul>
+<li>数据驱动：ViewModel，保证数据和视图的⼀致性</li>
+<li>组件系统：应⽤类UI可以看做全部是由组件树构成的</li>
+</ul>
+<p><strong>44、delete和Vue.delete删除数组的区别</strong></p>
+<ul>
+<li>delete只是被删除的元素变成了empty/undefined其他的元素的键值还是不变。</li>
+<li>Vue.delete直接删除了数组 改变了数组的键值</li>
+</ul>
+<p><strong>45、Vue-router跳转和location.href有什么区别</strong><br>​        使⽤location.href=/url 来跳转，简单⽅便，但是刷新了页⾯；使⽤history.pushState(/url),⽆刷新页⾯，静态跳转；引进router，然后使⽤router.push(/url)来跳转，使⽤了diff算法，实现了按需加载，减少了dom的消耗。其实使⽤router跳转和使⽤history.pushState()没什么差别，因为vue-router就是⽤了history.pushState(),尤其是在history模式下。<br><strong>46、RouterLink在IE和Firefox中不起作⽤（路由不跳转）的问题</strong><br>​        ⽅法⼀<br>​        只⽤a标签，不使⽤button标签<br>​        ⽅法⼆<br>​        使⽤button标签和Router.navigate⽅法<br><strong>47、请说下封装 vue 组件的过程？</strong><br>​        ⾸先，组件可以提升整个项⽬的开发效率。能够把页⾯抽象成多个相对独⽴的模块，解决了我们传统项⽬开发：效率低、难维护、复⽤性等问题。<br>​        然后，使⽤Vue.extend⽅法创建⼀个组件，然后使⽤Vue.component⽅法注册组件。⼦组件需要数据，可以在props中接受定义。⽽⼦组件修改好数据后，想把数据传递给⽗组件。可以采⽤emit⽅法。<br><strong>48、params和query的区别</strong><br>​        ⽤法：query要⽤path来引⼊，params要⽤name来引⼊，接收参数都是类似的，分别是this. $router.query.name 和 this.$router.params.name。url地址显⽰：query更加类似于我们ajax中get传参，params则类似于post，说的再简单⼀点，前者在浏览器地址栏中显⽰参数，后者则不显⽰<br>​        注意点：query刷新不会丢失query⾥⾯的数据params刷新会丢失params⾥⾯的数据<br><strong>49、vue mock数据</strong><br>​        在项⽬中尝试了mockjs，mock数据，实现前后端分离开发。<br>​        关于mockjs，官⽹描述的是</p>
+<ul>
+<li>1.前后端分离</li>
+<li>2.不需要修改既有代码，就可以拦截 Ajax 请求，返回模拟的响应数据。</li>
+<li>3.数据类型丰富</li>
+<li>4.通过随机数据，模拟各种场景。</li>
+</ul>
+<p>​        总结：在后端接⼝没有开发完成之前，前端可以⽤已有的接⼝⽂档，在真实的请求上拦截ajax，并根据mockjs的mock数据的规则，模拟真实接⼝返回的数据，并将随机的模拟数据返回参与相应的数据交互处理，这样真正实现了前后台的分离开发。<br>​        与以往的⾃⼰模拟的假数据不同，mockjs可以带给我们的是：在后台接⼝未开发完成之前模拟数据，并返回，完成前台的交互；在后台数据完成之后，你所做的只是去掉mockjs：停⽌拦截真实的ajax，仅此⽽已。<br><strong>50、vue初始化页⾯闪动问题</strong><br>​        使⽤vue开发时，在vue初始化之前，由于div是不会vue管的，所以我们写的代码在还没有解析的情况下会容易出现花屏现象，看到类似于的字样，虽然⼀般情况下这个时间很短暂，但是我们还是有必要解决这个问题的。<br>​        ⾸先：在css⾥加上[v-cloak]{display:none;}，如果没有彻底解决问题，则在根元素加上style=“display:none;” :style=”{display:block}”<br><strong>51、vue更新数组时触发视图更新的⽅法</strong><br>push();pop();shift();unshift();splice();sort();reverse()<br><strong>52、vue常⽤的UI组件库</strong><br>Mint UI，element，VUX<br><strong>53、mint-ui是什么？怎么使⽤？说出⾄少三个组件使⽤⽅法？</strong><br>​        基于vue的前端组件库。<br>​        npm安装，然后import样式和js，vue.use（mintUi）全局引⼊。在单个组件局部引⼊：import {Toast} from ‘mint-ui’。</p>
+<ul>
+<li>组件⼀：Toast(‘登录成功’)；</li>
+<li>组件⼆：mint-header；</li>
+<li>组件三：mint-swiper</li>
+</ul>
+<p><strong>54、Vue⾥⾯router-link在电脑上有⽤，在安卓上没反应怎么解决？</strong><br>​        Vue路由在Android机上有问题，babel问题，安装babel polypill插件解决<br><strong>55、Vue2中注册在router-link上事件⽆效解决⽅法</strong><br>​        使⽤@click.native。原因：router-link会阻⽌click事件，.native指直接监听⼀个原⽣事件。</p>
+<p><strong>56、Vue-router 导航守卫有哪些</strong></p>
+<ul>
+<li>全局前置/钩子：beforeEach、beforeResolve、afterEach</li>
+<li>路由独享的守卫：beforeEnter</li>
+<li>组件内的守卫：beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave</li>
+</ul>
+<p>引自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_53206841/article/details/125065551">2022Vue经典面试题及答案汇总(持续更新）</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">YuanXiao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://henuyuanxiao.github.io/2022/12/19/vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">https://henuyuanxiao.github.io/2022/12/19/vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://henuyuanxiao.github.io" target="_blank">爷の宝藏小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vue/">vue</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/5.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/12/19/%E5%9C%A8%E5%9B%BE%E7%89%87%E4%B8%AD%E9%9A%90%E8%97%8F%E4%BF%A1%E6%81%AF%E2%80%94%E2%80%94%E5%9F%BA%E4%BA%8EJava%E7%9A%84LSP%E7%AE%97%E6%B3%95%20-%20%E5%89%AF%E6%9C%AC/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/3.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">在图片中隐藏信息——基于Java的LSP算法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/09/vue%E7%AC%94%E8%AE%B0(%E4%B8%80)%E2%80%94%E2%80%94%E9%9D%9E%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6/" title="vue笔记(一)——非单文件组件"><img class="cover" src="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-09</div><div class="title">vue笔记(一)——非单文件组件</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2022/02/05/89VfrlGU2HKcu64.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">YuanXiao</div><div class="author-info__description">向他人分享自己的爱好，也是需要勇气的呀</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/henuyuanxiao"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By YuanXiao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.css"><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '8V6ee3OFO3t2h7qg1CMnkCYn-MdYXbMMI',
+      appKey: 'wDunhApxBxHVaowhJmyLsWhE',
+      avatar: 'monsterid',
+      serverURLs: 'https://8v6ee3of.api.lncldglobal.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true,
+      placeholder: '建议使用QQ邮箱，评论头像采用QQ头像',
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      enableQQ: true,
+      requiredFields: ["nick,mail"],
+      master: '55ab54de1723438902928610444a28e2'.split(','),
+      friends: 'c7a506f152435184ef7f2e22813c2cd7'.split(','),
+      tagMeta: '博主,小伙伴,访客'.split(','),
+      metaPlaceholder: {"nick":"昵称/QQ号（必填）","mail":"邮箱（必填）","link":"网址（https://）"}
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/gh/tzy13755126023/BLOG_SOURCE/valine_f/valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer src="js/jquery-3.5.1.js"></script><div class="aplayer no-destroy" data-id="7719998596" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><script data-pjax defer src="js/chocolate.js"></script><script defer src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@latest/source/js/issues.min.js"></script><script defer src="https://cdn.jsdelivr.net/gh/graingert/wow@1.3.0/dist/wow.min.js"></script><script defer data-pjax src="/js/wow_init.js"></script><script defer src="/live2d-widget/autoload.js"></script><script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script><script src="/js/sun_moon.js" async></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2022/12/19/在图片中隐藏信息——基于Java的LSP算法 - 副本/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/3.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-19</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2022/12/19/在图片中隐藏信息——基于Java的LSP算法 - 副本/&quot;);" href="javascript:void(0);" alt="">在图片中隐藏信息——基于Java的LSP算法</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2022/12/19/在图片中隐藏信息——基于Java的LSP算法 - 副本/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2022/12/19/vue面试题总结/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/5.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-12-19</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2022/12/19/vue面试题总结/&quot;);" href="javascript:void(0);" alt="">vue面试题总结</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2022/12/19/vue面试题总结/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;2022/02/09/vue笔记(一)——非单文件组件/&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/henuyuanxiao/cdn/img/fgobg/4.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2022-02-09</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;2022/02/09/vue笔记(一)——非单文件组件/&quot;);" href="javascript:void(0);" alt="">vue笔记(一)——非单文件组件</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;2022/02/09/vue笔记(一)——非单文件组件/&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 280px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("https://python-github-calendar-api-zfour.vercel.app/api?henuyuanxiao",['#e4dfd7', '#f9f4dc', '#f7e8aa', '#f7e8aa', '#f8df72', '#fcd217', '#fcc515', '#f28e16', '#fb8b05', '#d85916', '#f43e06'],'henuyuanxiao')
+    }
+  </script><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var qweather_key = 'b16a1fa0e63c46a4b8f28abfb06ae3fe';
+  var gaud_map_key = 'e2b04289e870b005374ee030148d64fd&s=rsv3';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '112.59,28.12';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu/lib/clock.min.js"></script><!-- hexo injector body_end end --></body></html>
